@@ -1,0 +1,49 @@
+
+<div class="card m-3">
+  <div class="grid">
+    <div class="col-3 grid">
+      <div class="col-12 justify-content-center flex">
+        <p-button
+          (click)="registrarForm()"
+          icon="pi pi-external-link"
+          label="Registrar Role"
+        ></p-button>
+      </div>
+      <div class="col-12 justify-content-center flex">
+        <p-button
+          (click)="registrarForm()"
+          icon="pi pi-external-link"
+          label="Registrar Role"
+        ></p-button>
+      </div>
+      <div class="col-12 justify-content-center flex">
+        <p-button
+          (click)="registrarForm()"
+          icon="pi pi-external-link"
+          label="Registrar Role"
+        ></p-button>
+      </div>
+      <div class="col-12 justify-content-center flex">
+        <p-button
+          (click)="registrarForm()"
+          icon="pi pi-external-link"
+          label="Registrar Role"
+        ></p-button>
+      </div>
+    </div>
+    <div class="col-9">
+      <app-roles-listar
+        [data]="roles"
+        (enviarIdDetalles)="detailview($event)"
+      ></app-roles-listar>
+    </div>
+  </div>
+</div>
+<app-roles-details
+*ngIf="roleSelected"
+[dataSelected]="roleSelected"
+[displayModal]="detallesModal"
+(onCloseDetalles)="cerrarDetallesModal($event)"
+(emitOperation)="recibirOperation($event)"
+>
+</app-roles-details>

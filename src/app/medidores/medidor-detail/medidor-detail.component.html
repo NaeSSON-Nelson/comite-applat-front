@@ -1,0 +1,71 @@
+<p-dialog
+  header="Medidores Asignado al Afiliado"
+  [(visible)]="displayModal"
+  [baseZIndex]="999"
+  [modal]="true"
+  [style]="{ width: '50vw' }"
+  [draggable]="false"
+  [resizable]="false"
+  (onHide)="closeModal()"
+  [blockScroll]="true"
+>
+  <p-card [style]="{padding:'0px'}">
+    <ng-template pTemplate="content">
+        <div class="grid p-fluid w-full">
+            <div class="col-12 grid p-fluid ">
+                <div class="col-12 flex align-items-center">DATOS DE AFILIADO</div>
+                <div class="col-12 grid p-fluid flex justify-content-center">
+                    <div class="field col-12 md:col-6 flex grid align-items-center"><label class="col-fixed field-label" >AFILIADO</label><div class="col"><input type="text" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none" [disabled]="true" value=" {{dataSelected.nombrePrimero | titlecase}} {{dataSelected.nombreSegundo ||'' |titlecase}} {{dataSelected.apellidoPrimero | titlecase}} {{dataSelected.apellidoSegundo ||'' | titlecase}}"></div></div>
+                    <div class="field col-12 md:col-6 flex grid align-items-center"><label class="col-fixed field-label" >CI</label><div class="col"><input type="text" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none" [disabled]="true" value="{{dataSelected.nombreSegundo| titlecase}}"></div></div>                
+                    <!--TODO: AGREGAR ANIMACION A LA PANTALLA DE ACUERDO A SU ESTADO-->
+                    <!-- <div class="field grid col-12 md:col-6 align-items-center flex"><label class="col-fixed field-label" >ESTADO</label><div class="col"><input type="text" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none" [disabled]="true" [value]="dataSelected.estado | titlecase"></div></div>                 -->
+                    <div class="field col-12 md:col-6 flex grid align-items-center"><label class="col-fixed field-label" >CEDULA IDENTIDAD</label><div class="col"><input type="text" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none" [disabled]="true" [value]="dataSelected.CI"></div></div>
+                </div>
+            </div>
+            <!--TODO: MEDIDORES DE ACUERDO AL CHECK LIST-->
+            <div class="col-12 grid">
+                <div class="col-3">
+                    <span class="p-float-label">
+                        <p-dropdown
+                        [options]="dataSelected.medidores"
+                        placeholder="Seleccione un medidor"
+                        optionLabel="nroMedidor"
+                        inputId="float-label"
+                        (onChange)="selectMedidor($event)"
+                        ></p-dropdown>
+                        <label for="float-label">Medidor (*)</label>
+                    </span>
+                </div>
+                <div class="col-12 grid" *ngIf="medidorSelected">
+                    <div class="col-12 flex align-items-center">DATOS DEL MEDIDOR</div>
+                    <div class="col-12 grid p-fluid flex justify-content-center">
+                        <div class="field col-12 md:col-6 flex grid align-items-center"><label class="col-fixed field-label" >Nro Medidor</label><div class="col"><input type="text" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none" [disabled]="true" value="{{medidorSelected.nroMedidor}}" ></div></div>
+                        <div class="field col-12 md:col-6 flex grid align-items-center"><label class="col-fixed field-label" >Marca</label><div class="col"><input type="text" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none" [disabled]="true" value="{{medidorSelected.marca}}"></div></div>                
+                        <div class="field col-12 md:col-6 flex grid align-items-center"><label class="col-fixed field-label" >Fecha de Instalacion</label><div class="col"><input type="text" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none" [disabled]="true" value="{{medidorSelected.fechaInstalacion}}"></div></div>                
+                        <div class="field col-12 md:col-6 flex grid align-items-center"><label class="col-fixed field-label" >Lectura de Inicio</label><div class="col"><input type="text" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none" [disabled]="true" value="{{medidorSelected.lecturaInicial}}"></div></div>                
+                        <div class="field col-12 md:col-6 flex grid align-items-center"><label class="col-fixed field-label" >Ultima lectura registrada</label><div class="col"><input type="text" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none" [disabled]="true" value="{{medidorSelected.ultimaLectura}}"></div></div>                
+                        <!--TODO: AGREGAR ANIMACION A LA PANTALLA DE ACUERDO A SU ESTADO-->
+                    </div>
+                </div>
+            </div>
+        </div> 
+    </ng-template>
+</p-card>
+<ng-template pTemplate="footer">
+ <div class="flex justify-content-center flex-wrap"  *ngIf="medidorSelected">
+
+     <button pButton pRipple type="button" label="MODIFICAR" class="p-button-secondary  mx-3 " (click)="operation({type:'MODIFICAR',id:medidorSelected.id!})"
+     ></button>
+     
+     <button pButton pRipple type="button" label="DESHABILITAR" 
+     *ngIf="medidorSelected.estado===1 else deshabilitar"
+     class="p-button-warning  mx-3 " (click)="operation({type:'DESHABILITAR',id:medidorSelected.id!})"></button>
+     <ng-template #deshabilitar>
+         <button pButton pRipple type="button" label="HABILITAR" 
+         class="p-button-warning  mx-3 " (click)="operation({type:'HABILITAR',id:medidorSelected.id!})"></button>
+     </ng-template>
+     <button pButton pRipple type="button" label="ELIMINAR" class="p-button-danger  mx-3 " (click)="operation({type:'ELIMINAR',id:medidorSelected.id!})"
+     ></button>
+    </div>
+</ng-template>
+</p-dialog>

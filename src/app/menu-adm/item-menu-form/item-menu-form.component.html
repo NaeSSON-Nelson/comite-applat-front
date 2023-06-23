@@ -1,0 +1,82 @@
+<p-dialog
+  [header]="ItemMenuActual? 'Actualizar datos del Item Menu':'Crear nuevo Item Menu'"
+  [(visible)]="showModalForm"
+  [baseZIndex]="1000"
+  [modal]="true"
+  [style]="{ width: '30vw' }"
+  [draggable]="false"
+  [resizable]="false"
+  (onHide)="closeModal()"
+  [closeOnEscape]="true"
+  [resizable]="true"
+>
+<form
+    class="flex justify-content-center flex-wrap px-5  flex-column"
+    (ngSubmit)="validForm()"
+    [formGroup]="itemMenuForm"
+  >
+    <h3 *ngIf="ItemMenuActual; else nuevoItemMenu">Datos de item menu actual</h3>
+    <ng-template #nuevoItemMenu>
+        <h3>Datos para el nuevo Item Menu</h3>
+    </ng-template>
+    <div class="card grid">
+      <span class="col-12 mb-3" id="float-nombre">
+        <div class="p-float-label">
+          <input
+            type="text"
+            pInputText
+            formControlName="nombre"
+            [ngClass]="inputValid('nombre')"
+          />
+          <label for="float-nombre">Nombre de Menu(*)</label>
+        </div>
+        <small
+          id="nombre-help"
+          class="p-error block"
+          *ngIf="campoValido('nombre')"
+          >{{ getNombreErrors("nombre") }}</small
+        >
+      </span>
+      
+      <span class="col-12 p-float-label mb-3" id="float-linkMenu">
+        <div class="p-float-label">
+          <input
+            type="text"
+            pInputText
+            formControlName="linkMenu"
+            [ngClass]="inputValid('linkMenu')"
+          />
+          <label for="float-linkMenu">Enlace de menu</label>
+          <small
+            id="linkMenu-help"
+            class="p-error block"
+            *ngIf="campoValido('linkMenu')"
+            >{{ getLinkMenuErrors("linkMenu") }}</small
+          >
+        </div>
+      </span>
+      <span class="col" id="float-estado">
+        <div class="p-float-label">
+          <p-dropdown
+            formControlName="estado"
+            [options]="estados"
+            [ngClass]="inputValid('estado')"
+            optionValue="value"
+            optionLabel="name"
+            placeholder="Select estado"
+          ></p-dropdown>
+          <label for="float-estado">estado (*)</label>
+          <small
+            id="estado-help"
+            class="p-error block"
+            *ngIf="campoValido('estado')"
+            >{{ getEstadoErrors("estado") }}</small
+          >
+        </div>
+      </span>
+      <div class="col-12">
+        <button pButton [label]="ItemMenuActual?'Modificar':'Registrar'" class="p-button-raised"></button>
+      </div>
+    </div>
+  </form>
+</p-dialog>

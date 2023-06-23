@@ -1,0 +1,185 @@
+<div class="flex justify-content-center flex-wrap">
+    <form
+    class="flex justify-content-center flex-wrap px-5 w-6 "
+    (ngSubmit)="validForm()"
+    [formGroup]="afiliadoForm"
+  >
+    <h3 *ngIf="afiliadoActual; else nuevoAfiliado">Datos de afiliado actual</h3>
+    <ng-template #nuevoAfiliado>
+        <h3>Datos de nuevo Afiliado</h3>
+    </ng-template>
+    <div class="card grid">
+      <span class="col-12 md:col-6 mb-3" id="float-nombrePrimero">
+        <div class="p-float-label">
+          <input
+            type="text"
+            pInputText
+            formControlName="nombrePrimero"
+            [ngClass]="inputValid('nombrePrimero')"
+          />
+          <label for="float-nombrePrimero">Primer Nombre (*)</label>
+        </div>
+        <small
+          id="nombrePrimero-help"
+          class="p-error block"
+          *ngIf="campoValido('nombrePrimero')"
+          >{{ getNombrePrimeroErrors("nombrePrimero") }}</small
+        >
+      </span>
+      
+      <span class="col-12 md:col-6 p-float-label mb-3" id="float-nombreSegundo">
+        <div class="p-float-label">
+          <input
+            type="text"
+            pInputText
+            formControlName="nombreSegundo"
+            [ngClass]="inputValid('nombreSegundo')"
+          />
+          <label for="float-nombreSegundo">Segundo Nombre</label>
+          <small
+            id="nombreSegundo-help"
+            class="p-error block"
+            *ngIf="campoValido('nombreSegundo')"
+            >{{ getNombreSegundoErrors("nombreSegundo") }}</small
+          >
+        </div>
+      </span>
+      <span class="col-12 md:col-6 mb-3" id="float-apellidoPrimero">
+        <div class="p-float-label">
+          <input
+            type="text"
+            pInputText
+            formControlName="apellidoPrimero"
+            [ngClass]="inputValid('apellidoPrimero')"
+          />
+          <label for="float-apellidoPrimero">Primer apellido (*)</label>
+        </div>
+        <small
+          id="apellidoPrimero-help"
+          class="p-error block"
+          *ngIf="campoValido('apellidoPrimero')"
+          >{{ getPrimerApellidoErrors("apellidoPrimero") }}</small
+        >
+      </span>
+
+      <span class="col-12 md:col-6 mb-3" id="float-apellidoSegundo">
+        <div class="p-float-label">
+            <input
+            type="text"
+            pInputText
+            formControlName="apellidoSegundo"
+            [ngClass]="inputValid('apellidoSegundo')"
+          />
+          <label for="float-apellidoSegundo">Segundo Apellido</label>
+        </div>
+        <small
+          id="apellidoSegundo-help"
+          class="p-error block"
+          *ngIf="campoValido('apellidoSegundo')"
+          >{{ getSegundoApellidoErrors("apellidoSegundo") }}</small
+        >
+      </span>
+      <span class="col-12 md:col-6 mb-3" id="float-CI">
+        <div class="p-float-label">
+          <input
+            type="text"
+            pInputText
+            formControlName="CI"
+            [ngClass]="inputValid('CI')"
+          />
+          <label for="float-CI">Cedula de Identidad(*)</label>
+        </div>
+        <small
+          id="CI-help"
+          class="p-error block"
+          *ngIf="campoValido('CI')"
+          >{{ getCiErrors("CI") }}</small
+        >
+      </span>
+      
+      <span class="col-12 md:col-6 p-float-label mb-3" id="float-genero">
+        <div class="p-float-label">
+            <p-dropdown
+            formControlName="genero"
+            [options]="generos"
+            [ngClass]="inputValid('genero')"
+            optionValue="value"
+            optionLabel="name"
+            placeholder="Select genero"
+            class="w-7"
+            >
+            </p-dropdown>
+          <label for="float-genero">Genero (*)</label>
+          <small
+            id="genero-help"
+            class="p-error block"
+            *ngIf="campoValido('genero')"
+            >{{ getGeneroErrors("genero") }}</small
+          >
+        </div>
+      </span>
+
+      <span class="col-12 md:col-6 p-float-label mb-3" id="float-fechaNacimiento">
+        <div class="p-float-label">
+            <p-calendar
+            formControlName="fechaNacimiento"
+            [showIcon]="true"
+            dateFormat="dd/mm/yy"
+            [readonlyInput]="true"
+            dataType="string"
+            [ngClass]="inputValid('fechaNacimiento')"
+          >
+          </p-calendar>
+          <label for="float-fechasEstimadas">Fecha de Nacimiento (*)</label>
+          <small
+            id="fechaNacimiento-help"
+            class="p-error block"
+            *ngIf="campoValido('fechaNacimiento')"
+            >{{ getFechaNacimientoErrors("fechaNacimiento") }}</small
+          >
+        </div>
+      </span>
+      <span class="col-12 md:col-6 p-float-label mb-3" id="float-profesion">
+        <div class="p-float-label">
+            <input
+            type="text"
+            pInputText
+            formControlName="profesion"
+            [ngClass]="inputValid('profesion')"
+          />
+          <label for="float-profesion">Profesion</label>
+          <small
+            id="profesion-help"
+            class="p-error block"
+            *ngIf="campoValido('profesion')"
+            >{{ getProfesionErrors("profesion") }}</small
+          >
+        </div>
+      </span>
+      <span class="col-12 md:col-6 p-float-label mb-3" id="float-estado">
+        <div class="p-float-label">
+          <p-dropdown
+            formControlName="estado"
+            [options]="estados"
+            [ngClass]="inputValid('estado')"
+            optionValue="value"
+            optionLabel="name"
+            
+            placeholder="Select estado"
+          ></p-dropdown>
+          <label for="float-estado">estado (*)</label>
+          <small
+            id="estado-help"
+            class="p-error block"
+            *ngIf="campoValido('estado')"
+            >{{ getEstadoErrors("estado") }}</small
+          >
+        </div>
+      </span>
+      <div class="col-12">
+        <button pButton [label]="afiliadoActual?'Modificar':'Registrar'" class="p-button-raised"></button>
+      </div>
+    </div>
+  </form>
+</div>
+

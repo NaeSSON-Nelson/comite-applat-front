@@ -1,0 +1,42 @@
+<p-dialog
+  header="Detalles del item Menu"
+  [(visible)]="displayModal"
+  [baseZIndex]="999"
+  [modal]="true"
+  [style]="{ width: '50vw' }"
+  [draggable]="false"
+  [resizable]="false"
+  (onHide)="closeModal()"
+  [blockScroll]="true"
+>
+  <p-card [style]="{padding:'0px'}">
+    <ng-template pTemplate="content">
+        <div class="grid p-fluid w-full">
+            <div class="col-12 grid p-fluid ">
+                <div class="col-12 flex align-items-center">datos de item menu</div>
+                <div class="col-12 grid p-fluid flex justify-content-center">
+                    <div class="field col-12 md:col-6 flex grid align-items-center"><label class="col-fixed field-label" >NOMBRE</label><div class="col"><input type="text" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none" [disabled]="true" value="{{dataSelected.nombre | titlecase}}"></div></div>
+                    <div class="field col-12 md:col-6 flex grid align-items-center"><label class="col-fixed field-label" >ENLACE MENU</label><div class="col"><input type="text" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none" [disabled]="true" value="{{dataSelected.linkMenu| titlecase}}"></div></div>
+                </div>
+            </div>
+        </div> 
+    </ng-template>
+</p-card>
+<ng-template pTemplate="footer">
+ <div class="flex justify-content-center flex-wrap">
+
+     <button pButton pRipple type="button" label="MODIFICAR" class="p-button-secondary  mx-3 " (click)="operation({type:'MODIFICAR',id:dataSelected.id!})"
+     ></button>
+     
+     <button pButton pRipple type="button" label="DESHABILITAR" 
+     *ngIf="dataSelected.estado===1 else deshabilitar"
+     class="p-button-warning  mx-3 " (click)="operation({type:'DESHABILITAR',id:dataSelected.id!})"></button>
+     <ng-template #deshabilitar>
+         <button pButton pRipple type="button" label="HABILITAR" 
+         class="p-button-warning  mx-3 " (click)="operation({type:'HABILITAR',id:dataSelected.id!})"></button>
+     </ng-template>
+     <button pButton pRipple type="button" label="ELIMINAR" class="p-button-danger  mx-3 " (click)="operation({type:'ELIMINAR',id:dataSelected.id!})"
+     ></button>
+    </div>
+</ng-template>
+</p-dialog>

@@ -1,0 +1,20 @@
+
+<p-button
+  (click)="registrarForm()"
+  icon="pi pi-external-link"
+  label="Asignar nuevo usuario"
+></p-button>
+<app-usuario-list
+    [data]="usuarios"
+    (enviarIdDetalles)="detailview($event)"
+></app-usuario-list>
+<app-usuario-details
+*ngIf="usuarioSelected"
+[dataSelected]="usuarioSelected"
+[displayModal]="detallesModal"
+(onCloseDetalles)="cerrarDetallesModal($event)"
+(emitOperation)="recibirOperation($event)"
+>
+</app-usuario-details>
+
+

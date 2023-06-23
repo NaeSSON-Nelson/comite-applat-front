@@ -1,0 +1,47 @@
+<p-dialog
+header="Tabla de asignar Afiliado"
+  [(visible)]="displayModalTable"
+  [baseZIndex]="999"
+  [modal]="true"
+  [style]="{ width: '50vw' }"
+  [draggable]="false"
+  [resizable]="false"
+  (onHide)="closeModal()"
+>
+<ng-template pTemplate="content">
+    <p-table 
+    [value]="data" 
+    [paginator]="true" 
+    [rows]="5" 
+    [(selection)]="dataSelected" 
+    selectionMode="single"
+    dataKey="id" 
+    [tableStyle]="{'min-width': '50rem'}" 
+    >
+        <ng-template pTemplate="header">
+            <tr>
+                <!-- <th style="width: 4rem">
+                </th> -->
+                
+                <th style="min-width:200px">AFILIADO</th>
+                <th style="min-width:200px">CEDULA IDENTIDAD</th>
+                <th style="min-width:200px">PROFESION</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-employee let-rowIndex="rowIndex">
+            <tr [pSelectableRow]="employee" [pSelectableRowIndex]="rowIndex">
+                <!-- <td>
+                    <p-tableRadioButton  [value]="employee" ></p-tableRadioButton >
+                </td> -->
+                
+                <td> {{employee.nombrePrimero | titlecase}} {{employee.nombreSegundo ||"" |titlecase}} {{employee.apellidoPrimero | titlecase}} {{employee.apellidoSegundo ||"" | titlecase}} 
+                </td>
+                <td>{{employee.CI}}</td>
+                <td>{{employee.profesion}}</td>
+            </tr>
+        </ng-template>
+    </p-table>
+    <p-button label="Asignar Afiliado" (onClick)="selectData()" [disabled]="dataSelected==={}"></p-button>
+
+</ng-template>
+</p-dialog>

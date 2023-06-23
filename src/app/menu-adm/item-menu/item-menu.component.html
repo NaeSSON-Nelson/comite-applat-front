@@ -1,0 +1,56 @@
+<div class="card m-3">
+    <div class="grid">
+      <div class="col-3 grid">
+        <div class="col-12 justify-content-center flex">
+          <p-button
+            (click)="registrarForm()"
+            icon="pi pi-external-link"
+            label="Registrar Item Menu"
+          ></p-button>
+        </div>
+        <div class="col-12 justify-content-center flex">
+          <p-button
+            (click)="registrarForm()"
+            icon="pi pi-external-link"
+            label="Registrar Item Menu"
+          ></p-button>
+        </div>
+        <div class="col-12 justify-content-center flex">
+          <p-button
+            (click)="registrarForm()"
+            icon="pi pi-external-link"
+            label="Registrar Item Menu"
+          ></p-button>
+        </div>
+        <div class="col-12 justify-content-center flex">
+          <p-button
+            (click)="registrarForm()"
+            icon="pi pi-external-link"
+            label="Registrar Item Menu"
+          ></p-button>
+        </div>
+      </div>
+      <div class="col-9">
+        <app-item-menu-listar
+          [data]="itemsMenu"
+          (enviarIdDetalles)="detailview($event)"
+        ></app-item-menu-listar>
+      </div>
+    </div>
+  </div>
+  <app-item-menu-details
+    *ngIf="itemMenuSelected"
+    [dataSelected]="itemMenuSelected"
+    [displayModal]="detallesModal"
+    (onCloseDetalles)="cerrarDetallesModal($event)"
+    (emitOperation)="recibirOperation($event)"
+  >
+  </app-item-menu-details>
+
+  <app-item-menu-form
+  *ngIf="modalForm"
+  [ItemMenuActual]="itemMenuSelected"
+  [showModalForm]="modalForm"
+(onCloseModal)="closeModalForm($event)"
+  ></app-item-menu-form>
+  

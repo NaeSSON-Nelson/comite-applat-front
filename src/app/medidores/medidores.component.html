@@ -1,0 +1,31 @@
+<div class="card m-3">
+    <div class="grid">
+        <div class="col-3 grid">
+          <div class="col-12 justify-content-center flex">
+            <p-button
+            (click)="registrarForm()"
+            icon="pi pi-external-link"
+            label="Asignar Medidor"
+            class="my-5"
+            ></p-button>
+          </div>
+        </div>
+        <div class="col-9">
+          <app-medidores-listar
+            [data]="afiliados"
+            (enviarIdDetalles)="detailview($event)"
+          ></app-medidores-listar>
+        </div>
+    </div>
+  </div>
+  
+  
+  <app-medidor-detail
+    *ngIf="afiliadoSelected"
+    [dataSelected]="afiliadoSelected"
+    [displayModal]="detallesModal"
+    (onCloseDetalles)="cerrarDetallesModal($event)"
+    (emitOperation)="recibirOperation($event)"
+  >
+  </app-medidor-detail>
+  

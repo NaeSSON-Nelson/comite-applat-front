@@ -1,0 +1,66 @@
+<div class="flex justify-content-center flex-wrap">
+  <form
+    class="flex flex-wrap px-5 w-6"
+    (ngSubmit)="validForm()"
+    [formGroup]="loginForm"
+  >
+    <div class="card grid">
+      <div class="col-12 mb-2 flex justify-content-center">
+        <h3>Login User</h3>
+      </div>
+      <div class="col-12 mb-3 flex justify-content-center">
+        <span id="float-userName">
+          <div class="p-float-label">
+            <input
+              type="text"
+              pInputText
+              formControlName="userName"
+              [ngClass]="inputValid('userName')"
+            />
+            <label for="float-userName">Username (*)</label>
+          </div>
+          <small
+            id="userName-help"
+            class="p-error block"
+            *ngIf="campoValido('userName')"
+            >{{ getUsernameErrors("userName") }}</small
+          >
+        </span>
+      </div>
+      <div class="col-12 mb-3 flex justify-content-center">
+        <span id="float-password">
+          <div class="p-float-label">
+            <!-- <input
+              type="password"
+              pInput
+              formControlName="password"
+              [ngClass]="inputValid('password')"
+              
+            /> -->
+            <p-password
+            [toggleMask]="true"
+            [feedback]="false"
+            formControlName="password"
+            [ngClass]="inputValid('password')"
+            ></p-password>
+            <label for="float-password">Password (*)</label>
+          </div>
+          <small
+            id="password-help"
+            class="p-error block"
+            *ngIf="campoValido('password')"
+            >{{ getPasswordErrors("password") }}</small
+          >
+        </span>
+      </div>
+      <div class="col-12 flex justify-content-center">
+        <button
+          pButton
+          label="Iniciar Sesion"
+          class="p-button-raised"
+          [disabled]="loginForm.invalid"
+        ></button>
+      </div>
+    </div>
+  </form>
+</div>

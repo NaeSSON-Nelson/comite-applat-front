@@ -1,0 +1,117 @@
+<div class="flex justify-content-center flex-wrap">
+  <form
+    class="flex justify-content-center flex-wrap px-5 flex-column"
+    [formGroup]="menuForm"
+  >
+    <h3 *ngIf="menuActual; else nuevoMenu">Datos de menu actual</h3>
+    <ng-template #nuevoMenu>
+      <h3>Datos de nuevo Menu</h3>
+    </ng-template>
+    <div class="card grid" [style]="{ width: '50vw' }">
+      <span class="col-12 mb-3" id="float-nombre">
+        <div class="p-float-label">
+          <input
+            type="text"
+            pInputText
+            formControlName="nombre"
+            [ngClass]="inputValid('nombre')"
+          />
+          <label for="float-nombre">Nombre de Menu(*)</label>
+        </div>
+        <small
+          id="nombre-help"
+          class="p-error block"
+          *ngIf="campoValido('nombre')"
+          >{{ getNombreErrors("nombre") }}</small
+        >
+      </span>
+
+      <span
+        class="col-12 p-float-label mb-3"
+        id="float-linkMenu"
+      >
+        <div class="p-float-label">
+          <input
+            type="text"
+            pInputText
+            formControlName="linkMenu"
+            [ngClass]="inputValid('linkMenu')"
+          />
+          <label for="float-linkMenu">Enlace de menu</label>
+          <small
+            id="linkMenu-help"
+            class="p-error block"
+            *ngIf="campoValido('linkMenu')"
+            >{{ getLinkMenuErrors("linkMenu") }}</small
+          >
+        </div>
+      </span>
+      <span class="col" id="float-estado">
+        <div class="p-float-label">
+          <p-dropdown
+            formControlName="estado"
+            [options]="estados"
+            [ngClass]="inputValid('estado')"
+            optionValue="value"
+            optionLabel="name"
+            placeholder="Select estado"
+          ></p-dropdown>
+          <label for="float-estado">estado (*)</label>
+          <small
+            id="estado-help"
+            class="p-error block"
+            *ngIf="campoValido('estado')"
+            >{{ getEstadoErrors("estado") }}</small
+          >
+        </div>
+      </span>
+      
+      <div class="col">
+        <button
+          *ngIf="itemsMenuForm.length > 0; else addOption"
+          pButton
+          [label]="'Borrar Seleccion'"
+          class="p-button-danger"
+          (click)="deleteSelection()"
+        ></button>
+        <ng-template #addOption>
+          <button
+           pButton
+            [label]="'Asignar Items de Menu'"
+            class="p-button-raised"
+            (click)="showModalTable()"
+          ></button>
+
+        </ng-template>
+      </div>
+      <div
+        class="col-12"
+        *ngIf="listItemsSelected.length > 0"
+      >
+        <app-item-menu-list
+          [data]="listItemsSelected"
+          [editForm]="true"
+          [title]="'Items Seleccionados'"
+          (editarFormItemMenu)="deleteItemMenu($event)"
+        >
+        </app-item-menu-list>
+      </div>
+      <div class="col-12 flex justify-content-center">
+        <button
+          pButton
+          [label]="menuActual ? 'Modificar' : 'Registrar'"
+          class="p-button-raised"
+          [disabled]="menuForm.invalid"
+          (click)="validForm()"
+        ></button>
+      </div>
+    </div>
+  </form>
+</div>
+
+<app-asignar-item
+  *ngIf="showTableAsignModalForm"
+  [displayModalTable]="showTableAsignModalForm"
+  (closeDisplayModalTable)="closeTableModalForm($event)"
+  (onDataSelected)="ListItemMenuSelected($event)"
+></app-asignar-item>

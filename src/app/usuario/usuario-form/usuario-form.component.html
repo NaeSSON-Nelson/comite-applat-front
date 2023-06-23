@@ -1,0 +1,127 @@
+<div class="flex justify-content-center flex-wrap">
+  <form
+    class="flex justify-content-center flex-wrap px-5 flex-column"
+    [formGroup]="usuarioForm"
+  >
+    <h3 *ngIf="usuarioActual; else nuevoUsuario">Roles Asignados</h3>
+    <ng-template #nuevoUsuario>
+      <h3>Nuevo Usuario</h3>
+    </ng-template>
+    <div class="card grid" [style]="{ width: '50vw' }">
+      <div class="col-12 grid">
+        <div class="col-12" *ngIf="!usuarioActual">
+          <p-button
+            label="Seleccionar Afiliado"
+            (onClick)="showModalTableAfiliados()"
+          ></p-button>
+        </div>
+        <div class="col-12 grid" *ngIf="afiliadoSelected">
+          <div class="col-12">
+            <p class="font-bold w-10">Datos del Afiliado Seleccionado</p>
+          </div>
+          <div class="col-6">
+            <div class="field">
+              <label for="nombres">Nombres</label>
+              <input
+                id="nombres"
+                type="text"
+                class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+                value="{{ afiliadoSelected.nombrePrimero | titlecase }} {{
+                  afiliadoSelected.nombreSegundo || '' | titlecase
+                }}"
+                [disabled]="true"
+              />
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="field">
+              <label for="apellidos">Apellidos</label>
+              <input
+                id="apellidos"
+                type="text"
+                class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+                value="{{ afiliadoSelected.apellidoPrimero | titlecase }} {{
+                  afiliadoSelected.apellidoSegundo || '' | titlecase
+                }}"
+                [disabled]="true"
+              />
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="field">
+              <label for="ci">CI</label>
+              <input
+                id="ci"
+                type="text"
+                class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+                [value]="afiliadoSelected.CI"
+                [disabled]="true"
+              />
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="field">
+              <label for="ocupacion">Ocupacion</label>
+              <input
+                id="ocupacion"
+                type="text"
+                class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+                [value]="afiliadoSelected.profesion"
+                [disabled]="true"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <button
+          *ngIf="rolesForm.length > 0; else addOption"
+          pButton
+          [label]="'Borrar Asignados'"
+          class="p-button-danger"
+          (click)="deleteSelection()"
+        ></button>
+        <ng-template #addOption>
+          <button
+            pButton
+            [label]="'Asignar Menus'"
+            class="p-button-raised"
+            (click)="showModalTableRoles()"
+          ></button>
+        </ng-template>
+      </div>
+
+      <div class="col-12" *ngIf="listRolesSelected.length > 0">
+        <app-roles-list
+          [data]="listRolesSelected"
+          [editForm]="true"
+          [title]="'Roles Seleccionados'"
+          (editarFormItem)="deleteItemMenu($event)"
+        >
+        </app-roles-list>
+      </div>
+      <div class="col-12">
+        <button
+          pButton
+          [label]="usuarioActual ? 'Modificar' : 'Registrar'"
+          class="p-button-raised"
+          (click)="validForm()"
+        ></button>
+      </div>
+    </div>
+  </form>
+</div>
+
+<app-asignar-afiliado
+  *ngIf="showTableAsignAfiliadoModalForm"
+  [displayModalTable]="showTableAsignAfiliadoModalForm"
+  (closeDisplayModalTable)="closeTableAfiliadoModalForm($event)"
+  (onDataSelected)="afiliadoSelectable($event)"
+></app-asignar-afiliado>
+
+<app-asignar-roles
+  *ngIf="showTableAsignRoleModalForm"
+  [displayModalTable]="showTableAsignRoleModalForm"
+  (closeDisplayModalTable)="closeTableRoleModalForm($event)"
+  (onDataSelected)="ListItemMenuSelected($event)"
+></app-asignar-roles>

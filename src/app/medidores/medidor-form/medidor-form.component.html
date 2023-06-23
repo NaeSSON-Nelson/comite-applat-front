@@ -1,0 +1,131 @@
+<div class="flex justify-content-center flex-wrap m-5">
+    <form
+      class="flex justify-content-center flex-wrap px-5 flex-column"
+      [formGroup]="medidorForm"
+    >
+      <div class="grid" [style]="{'max-width':'500px'}">
+        <div class="col-12 p-2 flex justify-content-center">
+              <h3>{{"Formulario de registro y asignacion de medidor" | uppercase}}</h3>
+        </div>
+        <div class="col-12 p-2 flex justify-content-center">
+            <p-button label="Seleccionar Afiliado" styleClass="p-button-primary" (onClick)="showModalTable()"></p-button>
+        </div>
+        <div class="col-12 p-2 grid" *ngIf="afiliadoSelected">
+            <div class="col-12 flex justify-content-end">
+                <p-button icon="pi pi-times" styleClass="p-button-danger p-button-rounded"></p-button>
+            </div>
+            <div class="col-12">
+                <h3>Afiliado seleccionado</h3>
+            </div>
+            <div class="field col-12 md:col-6 flex grid align-items-center"><label class="col-fixed field-label" >AFILIADO</label><div class="col"><input type="text" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none" [disabled]="true" value=" {{afiliadoSelected.nombrePrimero | titlecase}} {{afiliadoSelected.nombreSegundo ||'' |titlecase}} {{afiliadoSelected.apellidoPrimero | titlecase}} {{afiliadoSelected.apellidoSegundo ||'' | titlecase}}"></div></div>
+            <div class="field col-12 md:col-6 flex grid align-items-center"><label class="col-fixed field-label" >CI</label><div class="col"><input type="text" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none" [disabled]="true" value="{{afiliadoSelected.CI}}"></div></div>       
+        </div>
+        <div class="col-12 p-2 grid" *ngIf="afiliadoSelected">
+            <div class="col-12"><h3>Datos de Medidor a registrar</h3></div>
+            <span class="col-12 md:col-6 mb-3" id="float-nroMedidor">
+                <div class="p-float-label">
+                  <input
+                    type="text"
+                    pInputText
+                    formControlName="nroMedidor"
+                    pKeyFilter="alphanum"
+                    [ngClass]="inputValid('nroMedidor')"
+                  />
+                  <label for="float-nroMedidor">Numero de Medidor(*)</label>
+                </div>
+                <small
+                  id="nroMedidor-help"
+                  class="p-error block"
+                  *ngIf="campoValido('nroMedidor')"
+                  >{{ getNroMedidorErrors("nroMedidor") }}</small
+                >
+              </span>
+
+              <span class="col-12 md:col-6 p-float-label mb-3" id="float-fechaInstalacion">
+                <div class="p-float-label">
+                    <p-calendar
+                    formControlName="fechaInstalacion"
+                    [showIcon]="true"
+                    dateFormat="dd/mm/yy"
+                    dataType="string"
+                    [ngClass]="inputValid('fechaInstalacion')"
+                  >
+                  </p-calendar>
+                  <label for="float-fechaInstalacion">Fecha de Instalacion (*)</label>
+                  <small
+                    id="fechaInstalacion-help"
+                    class="p-error block"
+                    *ngIf="campoValido('fechaInstalacion')"
+                    >{{ getFechaInstalacionErrors("fechaInstalacion") }}</small
+                  >
+                </div>
+              </span>
+              <span class="col-12 md:col-6 mb-3" id="float-lecturaInicial">
+                <div class="p-float-label">
+                  <input
+                    type="number"
+                    pInputText
+                    formControlName="lecturaInicial"
+                    pKeyFilter="int"
+                    [ngClass]="inputValid('lecturaInicial')"
+                  />
+                  <label for="float-lecturaInicial">Lectura Inicial(*)</label>
+                </div>
+                <small
+                  id="lecturaInicial-help"
+                  class="p-error block"
+                  *ngIf="campoValido('lecturaInicial')"
+                  >{{ getLecturaInicialErrors("lecturaInicial") }}</small
+                >
+              </span>
+              <span class="col-12 md:col-6 mb-3" id="float-marca">
+                <div class="p-float-label">
+                  <input
+                    type="text"
+                    pInputText
+                    formControlName="marca"
+                    [ngClass]="inputValid('marca')"
+                  />
+                  <label for="float-marca">Marca de medidor(*)</label>
+                </div>
+                <small
+                  id="marca-help"
+                  class="p-error block"
+                  *ngIf="campoValido('marca')"
+                  >{{ getMarcaErrors("marca") }}</small
+                >
+              </span>
+              <span class="col-12 md:col-6 p-float-label mb-3" id="float-estado">
+                <div class="p-float-label">
+                  <p-dropdown
+                    formControlName="estado"
+                    [options]="estados"
+                    [ngClass]="inputValid('estado')"
+                    optionValue="value"
+                    optionLabel="name"
+                    
+                    placeholder="Select estado"
+                  ></p-dropdown>
+                  <label for="float-estado">estado (*)</label>
+                  <small
+                    id="estado-help"
+                    class="p-error block"
+                    *ngIf="campoValido('estado')"
+                    >{{ getEstadoErrors("estado") }}</small
+                  >
+                </div>
+              </span>
+              <div class="col-12">
+                  <p-button [disabled]="medidorForm.invalid" [label]=" medidorActual ? 'Modificar Datos':'Registrar Medidor'" styleClass="p-button-primary" (onClick)="validForm()"></p-button>
+              </div>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <app-asignar-afiliado
+  *ngIf="showTableAsignModalForm"
+  [displayModalTable]="showTableAsignModalForm"
+  (closeDisplayModalTable)="closeTableModal($event)"
+  (onDataSelected)="afiliadoSelectable($event)"
+></app-asignar-afiliado>

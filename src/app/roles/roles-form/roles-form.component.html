@@ -1,0 +1,91 @@
+<div class="flex justify-content-center flex-wrap">
+  <form
+    class="flex justify-content-center flex-wrap px-5 flex-column"
+    [formGroup]="roleForm"
+  >
+    <h3 *ngIf="roleActual; else nuevoRole">Datos de Rol actual</h3>
+    <ng-template #nuevoRole>
+      <h3>Datos de nuevo Rol</h3>
+    </ng-template>
+    <div class="card grid" [style]="{ width: '50vw' }">
+      <span class="col-12 mb-3" id="float-nombre">
+        <div class="p-float-label">
+          <input
+            type="text"
+            pInputText
+            formControlName="nombre"
+            [ngClass]="inputValid('nombre')"
+          />
+          <label for="float-nombre">Nombre de Rol(*)</label>
+        </div>
+        <small
+          id="nombre-help"
+          class="p-error block"
+          *ngIf="campoValido('nombre')"
+          >{{ getNombreErrors("nombre") }}</small
+        >
+      </span>
+      <span class="col" id="float-estado">
+        <div class="p-float-label">
+          <p-dropdown
+            formControlName="estado"
+            [options]="estados"
+            [ngClass]="inputValid('estado')"
+            optionValue="value"
+            optionLabel="name"
+            placeholder="Select estado"
+          ></p-dropdown>
+          <label for="float-estado">estado (*)</label>
+          <small
+            id="estado-help"
+            class="p-error block"
+            *ngIf="campoValido('estado')"
+            >{{ getEstadoErrors("estado") }}</small
+          >
+        </div>
+      </span>
+      <div class="col">
+        <button
+          *ngIf="MenuForm.length > 0; else addOption"
+          pButton
+          [label]="'Borrar Asignados'"
+          class="p-button-danger"
+          (click)="deleteSelection()"
+        ></button>
+        <ng-template #addOption>
+          <button
+            pButton
+            [label]="'Asignar Menus'"
+            class="p-button-raised"
+            (click)="showModalTable()"
+          ></button>
+        </ng-template>
+      </div>
+          
+            <div class="col-12" *ngIf="listMenuSelected.length >0">
+              <app-menu-list
+                [data]="listMenuSelected"
+                [editForm]="true"
+                [title]="'Menus Seleccionados'"
+                (editarFormItem)="deleteItemMenu($event)"
+              >
+              </app-menu-list>
+            </div> 
+      <div class="col-12">
+        <button
+          pButton
+          [label]="roleActual ? 'Modificar' : 'Registrar'"
+          class="p-button-raised"
+          (click)="validForm()"
+        ></button>
+      </div>
+    </div>
+  </form>
+</div>
+
+<app-asignar-menus
+  *ngIf="showTableAsignModalForm"
+  [displayModalTable]="showTableAsignModalForm"
+  (closeDisplayModalTable)="closeTableModalForm($event)"
+  (onDataSelected)="ListItemMenuSelected($event)"
+></app-asignar-menus>

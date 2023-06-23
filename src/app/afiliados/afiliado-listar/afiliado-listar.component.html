@@ -1,0 +1,79 @@
+
+<p-table
+#dt
+[value]="data"
+dataKey="id"
+styleClass="p-datatable-customers"
+[rows]="10"
+[showCurrentPageReport]="true"
+[rowsPerPageOptions]="[10, 25, 50]"
+responsiveLayout="scroll"
+[paginator]="true"
+currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+[filterDelay]="0"
+>
+<ng-template pTemplate="caption">
+  <div class="table-header">
+    Afiliados
+    <span class="p-input-icon-left">
+      <i class="pi pi-search"></i>
+      <input pInputText type="text" placeholder="Global Search"  class="p-inputtext p-component p-element"/>
+      <!--(input)="dt.filterGlobal($event.target.value, 'contains')" -->
+    </span>
+  </div>
+</ng-template>
+<ng-template pTemplate="header">
+  <tr>
+    <th>ID</th>
+    <th>AFILIADO</th>
+    <th>CI</th>
+    <th>ESTADO</th>
+    <th></th>
+  </tr>
+</ng-template>
+<ng-template pTemplate="body" let-customer>
+  <tr class="p-selectable-row">
+    <td>
+        <span class="p-column-title">ID</span>
+        {{ customer.id}}
+    </td>
+    <td>
+      <span class="p-column-title">AFILIADO</span>
+        {{customer.nombrePrimero | titlecase}} {{customer.nombreSegundo ||"" |titlecase}} {{customer.apellidoPrimero | titlecase}} {{customer.apellidoSegundo ||"" | titlecase}} 
+    
+      </td>
+    <td>
+      <span class="p-column-title">CI</span>
+      {{ customer.CI | titlecase}}
+    </td>
+    <td>
+        <span class="p-column-title">ESTADO</span>
+        <span
+          *ngIf="customer.estado === 1; else spanInactivo"
+          class="customer-badge status-qualified"
+        >
+          ACTIVO
+        </span>
+        <ng-template #spanInactivo>
+          <span class="customer-badge status-unqualified">
+            INACTIVO
+          </span>
+        </ng-template>
+      </td>
+    <td style="text-align: center">
+        <p-button
+        label="detalles"
+        styleClass="p-button-warning"
+        icon="pi pi-user"
+        (click)="seleccionarId(customer.id)"
+        >
+      </p-button>
+    </td>
+  </tr>
+</ng-template>
+<ng-template pTemplate="emptymessage">
+  <tr>
+    <td colspan="8">No customers found.</td>
+  </tr>
+</ng-template>
+</p-table>

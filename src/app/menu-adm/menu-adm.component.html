@@ -1,0 +1,48 @@
+<div class="card m-3">
+  <div class="grid">
+    <div class="col-3 grid">
+      <div class="col-12 justify-content-center flex">
+        <p-button
+          (click)="registrarForm()"
+          icon="pi pi-external-link"
+          label="Registrar Menu"
+        ></p-button>
+      </div>
+      <div class="col-12 justify-content-center flex">
+        <p-button
+          (click)="registrarForm()"
+          icon="pi pi-external-link"
+          label="Registrar Menu"
+        ></p-button>
+      </div>
+      <div class="col-12 justify-content-center flex">
+        <p-button
+          (click)="registrarForm()"
+          icon="pi pi-external-link"
+          label="Registrar Menu"
+        ></p-button>
+      </div>
+      <div class="col-12 justify-content-center flex">
+        <p-button
+          (click)="registrarForm()"
+          icon="pi pi-external-link"
+          label="Registrar Menu"
+        ></p-button>
+      </div>
+    </div>
+    <div class="col-9">
+      <app-menu-listar
+        [data]="menus"
+        (enviarIdDetalles)="detailview($event)"
+      ></app-menu-listar>
+    </div>
+  </div>
+</div>
+<app-menu-details
+  *ngIf="menuSelected"
+  [dataSelected]="menuSelected"
+  [displayModal]="detallesModal"
+  (onCloseDetalles)="cerrarDetallesModal($event)"
+  (emitOperation)="recibirOperation($event)"
+>
+</app-menu-details>
