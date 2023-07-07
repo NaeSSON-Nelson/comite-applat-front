@@ -19,6 +19,10 @@ const routes: Routes = [
         pathMatch: 'full',
       },
       {
+        path: 'lecturas',
+        loadChildren: ()=> import('./lecturas/lecturas-routing.module').then(m=>m.LecturasRoutingModule)
+      },
+      {
         path: '**',
         redirectTo: '',
       },

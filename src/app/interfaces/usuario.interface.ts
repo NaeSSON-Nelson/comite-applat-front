@@ -10,6 +10,11 @@ export interface Usuario{
     roles?:      Role[];
     perfil?:     Perfil;
 }
+export interface UsuarioCreateResponse{
+    usuario:        Usuario;
+    realPassword:   string;
+    msg?:           string;
+}
 export interface UsuarioForm{
     id?:     number;
     userName?:   string;

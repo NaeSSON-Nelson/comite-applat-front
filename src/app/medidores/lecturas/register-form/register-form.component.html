@@ -1,0 +1,113 @@
+<div class="flex justify-content-center m-5">
+  <form
+    class="grid m-5"
+    [formGroup]="lecturaForm"
+    [style]="{ 'min-width': '480px' }"
+  >
+    <div class="col-12">
+      <div class="card p-fluid grid">
+        <div class="col-12">
+          <h3>Medidor a registrar lectura</h3>
+        </div>
+        <!-- <button pButton label="Buscar" (click)="openModalTable()"></button> -->
+        <div class="col-5">
+          <p-button
+            label="Buscar Medidor..."
+            (click)="openModalTable()"
+          ></p-button>
+        </div>
+        <div *ngIf="MedidorSeleccionado" class="col-12">
+          <h4>Medidor seleccionado</h4>
+          <div class="field">
+            <label for="">Numero de medidor</label>
+            <input type="text" pInputText [disabled]="true" [value]="MedidorSeleccionado.nroMedidor"/>
+          </div>
+          <div class="field">
+            <label for="">Ubicacion del medidor</label>
+            <input type="text" pInputText [disabled]="true" [value]="MedidorSeleccionado.ubicacionBarrio" />
+          </div>
+          <div class="field">
+            <label for="">Ultima lectura registrada</label>
+            <input type="text" pInputText [disabled]="true" [value]="MedidorSeleccionado.ultimaLectura"/>
+          </div>
+        </div>
+      </div>
+
+      <div class="card p-fluid" *ngIf="MedidorSeleccionado">
+        <h4>Registrar Datos de Lectura del medidor</h4>
+        <div class="p-formgrid grid">
+          <div class="field col-6">
+            <span class="p-float-label">
+              <p-inputNumber
+                mode="decimal"
+                inputId="lectura"
+                [useGrouping]="false"
+                formControlName="lectura"
+                [ngClass]="inputValid('lectura')"
+              >
+              </p-inputNumber>
+              <label for="lectura">Lectura Marcada (*)</label>
+              <small
+                id="lectura-help"
+                class="p-error block"
+                *ngIf="campoValido('lectura')"
+                >{{ getLecturaErrors("lectura") }}</small
+              >
+            </span>
+          </div>
+          <div class="flex flex-column field col-6">
+            <span class="p-float-label">
+              <input
+                pInputText
+                id="estadoMedidor"
+                aria-describedby="estadoMedidor-help"
+                formControlName="estadoMedidor"
+              />
+              <label htmlFor="estadoMedidor"
+                >Estado del medidor (opcional)</label
+              >
+              <small id="estadoMedidor-help"
+                >Ingrese el estado registrado del medidor.</small
+              >
+              <small
+                id="estado-help"
+                class="p-error block"
+                *ngIf="campoValido('estado')"
+                >{{ getEstadoErrors("estado") }}
+              </small>
+            </span>
+          </div>
+          <div class="field col-6 col-12 md:col-6">
+            <span class="p-float-label">
+              <p-dropdown
+                formControlName="estado"
+                [options]="estados"
+                [ngClass]="inputValid('estado')"
+                optionValue="value"
+                optionLabel="name"
+                placeholder="Select estado"
+              ></p-dropdown>
+              <label htmlFor="email2">Estado (*)</label>
+              <small
+                id="estado-help"
+                class="p-error block"
+                *ngIf="campoValido('estado')"
+                >{{ getEstadoErrors("estado") }}
+              </small>
+            </span>
+          </div>
+        </div>
+        <div class="col">
+          <button pButton label="Registrar Lectura" (click)="validForm()" [disabled]="lecturaForm.invalid"></button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+
+<app-medidor-select
+  [displayModalTable]="showModalForm"
+  (onCloseModal)="closeModal($event)"
+  (onDataSelected)="dataSelected($event)"
+>
+</app-medidor-select>

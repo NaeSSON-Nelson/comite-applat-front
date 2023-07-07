@@ -6,6 +6,7 @@ import { MainComponent } from './main/main.component';
 import { AuthService } from './auth.service';
 import { ReactiveFormsModule } from '@angular/forms';
 import { PrimeUiModule } from '../prime-ng/prime-ng.module';
+import { MessageService } from 'primeng/api';
 
 
 
@@ -22,7 +23,7 @@ import { PrimeUiModule } from '../prime-ng/prime-ng.module';
     PrimeUiModule
   ],
   providers:[
-    AuthService
+    AuthService,
   ]
 })
 export class AuthModule { }

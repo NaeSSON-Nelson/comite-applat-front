@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { MenuService } from './menu.service';
+import { AuthService } from '../auth/auth.service';
 @Component({
   selector: 'app-menu',
   templateUrl: './menu.component.html',
@@ -9,15 +10,16 @@ import { MenuService } from './menu.service';
 export class MenuComponent {
 
   constructor(
-    private readonly menuService:MenuService
+    private readonly menuService:MenuService,
+    private readonly authService:AuthService,
   ){}
   ngOnInit() {
-     this.menuService.menusUsuarioRoleAuth(11).subscribe(
-      res=>{
-        console.log(res)
-        console.log(res.data)
-      }
-     )
+     if(this.authService.usuario().id){
+      
+     }
+  }
+  cargarMenus(){
+
   }
   items: MenuItem[]= [
     {

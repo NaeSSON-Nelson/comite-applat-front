@@ -64,6 +64,7 @@ export class MedidorFormComponent {
     nroMedidor:[,[Validators.required,Validators.pattern(patternCI),Validators.minLength(4)]],
     fechaInstalacion:[,[Validators.required,Validators.pattern(patternDateFormat)]],
     lecturaInicial:[0,[Validators.required,Validators.min(0)]],
+    ubicacionBarrio:[,[Validators.required,Validators.minLength(3),Validators.pattern(patternText)]],
     estado:[1,[Validators.min(0)]],
     marca:[,[Validators.required,Validators.pattern(patternText),Validators.minLength(1)]],
     afiliado: this.fb.group({
@@ -180,6 +181,13 @@ export class MedidorFormComponent {
     { name: 'Activo', value: 1 },
     { name: 'Inactivo', value: 0 },
   ];
+  barrios = [
+    { name: '20 de marzo', value: '20 de marzo' },
+    { name: 'San Antonio', value: 'san antonio' },
+    { name: 'Mendez Fortaleza', value: 'mendez fortaleza' },
+    { name: 'Verde Olivo', value: 'verde olivo' },
+    { name: 'Primavera', value: 'primavera' },
+  ];
 
   ///VALIDATORS
 
@@ -246,7 +254,18 @@ export class MedidorFormComponent {
   getEstadoErrors(campo: string) {
     const errors = this.medidorForm.get(campo)?.errors;
     if (errors?.['min']) {
-      return 'El minimo es 0 = INACTIVO';
+      return 'El minimo es 0';
+    }
+    return '';
+  }
+  getUbicacionBarrioErrors(campo: string) {
+    const errors = this.medidorForm.get(campo)?.errors;
+    if (errors?.['required']) {
+      return 'El campo es requerido';
+    }else if(errors?.['minlength']){
+      return 'El valor minimo es 3'
+    }else if(errors?.['pattern']){
+      return 'caracteres no validos'
     }
     return '';
   }

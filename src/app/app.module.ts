@@ -16,6 +16,7 @@ import { UsuarioModule } from './usuario/usuario.module';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { AuthModule } from './auth/auth.module';
 import { MedidoresModule } from './medidores/medidores.module';
+import { LecturasModule } from './medidores/lecturas/lecturas.module';
 @NgModule({
   declarations: [
     AppComponent
@@ -32,12 +33,13 @@ import { MedidoresModule } from './medidores/medidores.module';
     //MATERIAL SET
 
     //SALVATION?
-    // AfiliadosModule,
-    // MenuAdmModule,
-    // RolesModule,
-    // UsuarioModule,
-    // AuthModule,
-    // MedidoresModule,
+    AfiliadosModule,
+    MenuAdmModule,
+    RolesModule,
+    UsuarioModule,
+    AuthModule,
+    MedidoresModule,
+    LecturasModule,
   ],
   providers: [MessageService,ConfirmationService],
   bootstrap: [AppComponent]

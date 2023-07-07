@@ -10,7 +10,7 @@ import { DropdownModule } from 'primeng/dropdown';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { PasswordModule } from 'primeng/password';
 import { KeyFilterModule } from 'primeng/keyfilter';
-
+import { InputNumberModule } from 'primeng/inputnumber';
 @NgModule({
   declarations: [],
   imports: [
@@ -25,6 +25,7 @@ import { KeyFilterModule } from 'primeng/keyfilter';
     ConfirmDialogModule,
     PasswordModule,
     KeyFilterModule,
+    InputNumberModule,
   ],
   exports: [
     DialogModule,
@@ -38,6 +39,7 @@ import { KeyFilterModule } from 'primeng/keyfilter';
     ConfirmDialogModule,
     PasswordModule,
     KeyFilterModule,
+    InputNumberModule,
   ],
 })
 export class PrimeUiModule {}

@@ -1,0 +1,96 @@
+<p-dialog
+  header="Seleccione un medidor de un afiliado"
+  [visible]="displayModalTable"
+  [modal]="true"
+  showEffect="fade"
+  [style]="{ width: '60vw' }"
+  [breakpoints]="{ '960px': '50vw' }"
+>
+  <p-card header="Seleccionar un medidor de afiliado" subheader="Afiliados:">
+    <ng-template pTemplate="content">
+      <p-table
+        [scrollable]="true"
+        [value]="data"
+        sortField="id"
+        sortMode="single"
+        dataKey="id"
+        rowGroupMode="subheader"
+        groupRowsBy="id"
+        [tableStyle]="{ 'min-width': '70rem' }"
+        selectionMode="single"
+        [(selection)]="selected"
+      >
+        <ng-template pTemplate="header">
+          <tr>
+            <th style="width: 20%">ID</th>
+            <th style="width: 20%">Numero de Medidor</th>
+            <th style="width: 20%">Barrio</th>
+            <th style="width: 20%">Ultima Lectura registrada</th>
+            <th style="width: 20%">Marca</th>
+          </tr>
+        </ng-template>
+        <ng-template
+          pTemplate="groupheader"
+          let-customer
+          let-rowIndex="rowIndex"
+          let-expanded="expanded"
+        >
+          <tr>
+            <td colspan="5">
+              <button
+                type="button"
+                pButton
+                pRipple
+                [pRowToggler]="customer"
+                class="p-button-text p-button-rounded p-button-plain mr-2"
+                [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"
+              ></button>
+              <span class="font-bold ml-2"
+                >{{ customer.nombrePrimero | titlecase }}
+                {{ customer.nombreSegundo || "" | titlecase }}
+                {{ customer.apellidoPrimero | titlecase }}
+                {{ customer.apellidoSegundo || "" | titlecase }}</span
+              >
+            </td>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="groupfooter" let-customer>
+          <tr class="p-rowgroup-footer">
+            <td colspan="4" style="text-align: right">Total Medidores</td>
+            <td>{{ calculateCustomerTotal(customer.medidores) }}</td>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="rowexpansion" let-customer>
+          <tr
+            *ngFor="let medidor of customer.medidores"
+            [pSelectableRow]="medidor"
+          >
+            <td>
+              {{ medidor.id }}
+            </td>
+            <td>
+              {{ medidor.nroMedidor }}
+            </td>
+            <td>
+              {{ medidor.ubicacionBarrio }}
+            </td>
+            <td>
+              {{ medidor.ultimaLectura }}
+            </td>
+            <td>
+              {{ medidor.marca }}
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </ng-template>
+    
+  </p-card>
+  <ng-template pTemplate="footer">
+    <p-button
+      label="Asignar Medidor"
+      (onClick)="selectData()"
+      [disabled]="selected===null || selected===undefined"
+    ></p-button>
+  </ng-template>
+</p-dialog>

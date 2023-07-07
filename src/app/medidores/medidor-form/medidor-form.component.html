@@ -37,8 +37,7 @@
                   id="nroMedidor-help"
                   class="p-error block"
                   *ngIf="campoValido('nroMedidor')"
-                  >{{ getNroMedidorErrors("nroMedidor") }}</small
-                >
+                  >{{ getNroMedidorErrors("nroMedidor") }}</small>
               </span>
 
               <span class="col-12 md:col-6 p-float-label mb-3" id="float-fechaInstalacion">
@@ -95,6 +94,27 @@
                   >{{ getMarcaErrors("marca") }}</small
                 >
               </span>
+              <span class="col-12 md:col-6 p-float-label mb-3" id="float-ubicacionBarrio">
+                <div class="p-float-label">
+                  <p-dropdown
+                    formControlName="ubicacionBarrio"
+                    [options]="barrios"
+                    [ngClass]="inputValid('ubicacionBarrio')"
+                    optionValue="value"
+                    optionLabel="name"
+                    
+                    placeholder="Select ubicacion del medidor"
+                  ></p-dropdown>
+                  <label for="float-ubicacionBarrio">Barrio (*)</label>
+                  <small
+                    id="ubicacionBarrio-help"
+                    class="p-error block"
+                    *ngIf="campoValido('ubicacionBarrio')"
+                    >{{ getUbicacionBarrioErrors("ubicacionBarrio") }}</small
+                  >
+                </div>
+              </span>
+              
               <span class="col-12 md:col-6 p-float-label mb-3" id="float-estado">
                 <div class="p-float-label">
                   <p-dropdown

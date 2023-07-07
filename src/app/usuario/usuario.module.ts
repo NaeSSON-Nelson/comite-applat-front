@@ -11,6 +11,7 @@ import { UsuarioService } from './usuario.service';
 import { PerfilFormComponent } from './perfil-form/perfil-form.component';
 import { RolesModule } from '../roles/roles.module';
 import { AfiliadosModule } from '../afiliados/afiliados.module';
+import { UsuarioCreatedComponent } from './usuario-created/usuario-created.component';
 
 
 
@@ -20,7 +21,8 @@ import { AfiliadosModule } from '../afiliados/afiliados.module';
     UsuarioFormComponent,
     UsuarioListComponent,
     UsuarioDetailsComponent,
-    PerfilFormComponent
+    PerfilFormComponent,
+    UsuarioCreatedComponent
   ],
   imports: [
     CommonModule,

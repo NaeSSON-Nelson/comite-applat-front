@@ -3,7 +3,7 @@
   [(visible)]="displayModal"
   [baseZIndex]="999"
   [modal]="true"
-  [style]="{ width: '50vw' }"
+  [style]="{ width: '60vw' }"
   [draggable]="false"
   [resizable]="false"
   (onHide)="closeModal()"
@@ -41,11 +41,14 @@
                     <div class="col-12 grid p-fluid flex justify-content-center">
                         <div class="field col-12 md:col-6 flex grid align-items-center"><label class="col-fixed field-label" >Nro Medidor</label><div class="col"><input type="text" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none" [disabled]="true" value="{{medidorSelected.nroMedidor}}" ></div></div>
                         <div class="field col-12 md:col-6 flex grid align-items-center"><label class="col-fixed field-label" >Marca</label><div class="col"><input type="text" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none" [disabled]="true" value="{{medidorSelected.marca}}"></div></div>                
-                        <div class="field col-12 md:col-6 flex grid align-items-center"><label class="col-fixed field-label" >Fecha de Instalacion</label><div class="col"><input type="text" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none" [disabled]="true" value="{{medidorSelected.fechaInstalacion}}"></div></div>                
+                        <div class="field col-12 md:col-6 flex grid align-items-center"><label class="col-fixed field-label" >Fecha de Instalacion</label><div class="col"><input type="text" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none" [disabled]="true" value="{{medidorSelected.fechaInstalacion | date: 'dd/MM/yyyy'}}"></div></div>                
                         <div class="field col-12 md:col-6 flex grid align-items-center"><label class="col-fixed field-label" >Lectura de Inicio</label><div class="col"><input type="text" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none" [disabled]="true" value="{{medidorSelected.lecturaInicial}}"></div></div>                
                         <div class="field col-12 md:col-6 flex grid align-items-center"><label class="col-fixed field-label" >Ultima lectura registrada</label><div class="col"><input type="text" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none" [disabled]="true" value="{{medidorSelected.ultimaLectura}}"></div></div>                
                         <!--TODO: AGREGAR ANIMACION A LA PANTALLA DE ACUERDO A SU ESTADO-->
                     </div>
+                <app-lecturas-medidor-list
+                [data]="medidorSelected.lecturas || []"
+                ></app-lecturas-medidor-list>
                 </div>
             </div>
         </div> 

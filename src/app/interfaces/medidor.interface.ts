@@ -6,6 +6,7 @@ export interface Medidor {
   fechaInstalacion?: Date;
   lecturaInicial?: number;
   ultimaLectura?: number;
+  ubicacionBarrio?:  string;
   estado?: Estado;
   marca?: string;
   lecturas?: LecturaMedidor[];

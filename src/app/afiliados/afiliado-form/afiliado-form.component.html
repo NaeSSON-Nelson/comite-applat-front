@@ -156,6 +156,26 @@
           >
         </div>
       </span>
+      <span class="col-12 md:col-6 p-float-label mb-3" id="float-barrio">
+        <div class="p-float-label">
+          <p-dropdown
+            formControlName="barrio"
+            [options]="barrios"
+            [ngClass]="inputValid('barrio')"
+            optionValue="value"
+            optionLabel="name"
+            
+            placeholder="Selecciona el barrio"
+          ></p-dropdown>
+          <label for="float-barrio">barrio (*)</label>
+          <small
+            id="barrio-help"
+            class="p-error block"
+            *ngIf="campoValido('barrio')"
+            >{{ getBarrioErrors("barrio") }}</small
+          >
+        </div>
+      </span>
       <span class="col-12 md:col-6 p-float-label mb-3" id="float-estado">
         <div class="p-float-label">
           <p-dropdown

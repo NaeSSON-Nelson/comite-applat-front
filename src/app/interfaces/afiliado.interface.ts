@@ -9,6 +9,7 @@ export interface Afiliado {
     CI?:                string;
     genero?:            string;
     profesion?:         string;
+    barrio?:            string;
     fechaNacimiento?:   Date;
     estado?:            Estado;
     medidores?:         Medidor[];

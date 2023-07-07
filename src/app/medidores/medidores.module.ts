@@ -8,6 +8,9 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MedidoresRoutingModule } from './medidores-routing.module';
 import { PrimeUiModule } from '../prime-ng/prime-ng.module';
 import { AfiliadosModule } from '../afiliados/afiliados.module';
+import { MedidorSelectComponent } from './medidor-select/medidor-select.component';
+import { LecturasModule } from './lecturas/lecturas.module';
+import { LecturasMedidorListComponent } from './lecturas/lecturas-medidor/lecturas-medidor.component';
 
 
 
@@ -16,14 +19,19 @@ import { AfiliadosModule } from '../afiliados/afiliados.module';
     MedidoresListarComponent,
     MedidorDetailComponent,
     MedidorFormComponent,
-    MedidoresComponent
+    MedidoresComponent,
+    MedidorSelectComponent,
+    LecturasMedidorListComponent,
   ],
   imports: [
     CommonModule,
     ReactiveFormsModule,
     MedidoresRoutingModule,
     AfiliadosModule,
-    PrimeUiModule
+    PrimeUiModule,
+  ],
+  exports:[
+    MedidorSelectComponent
   ]
 })
 export class MedidoresModule { }

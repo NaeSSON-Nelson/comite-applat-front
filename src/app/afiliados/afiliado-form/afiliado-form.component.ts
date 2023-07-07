@@ -67,6 +67,7 @@ export class AfiliadoFormComponent {
     CI: [,[Validators.required,Validators.minLength(6),Validators.pattern(patternCI)]],
     profesion: [, [Validators.minLength(3), Validators.pattern(patternText)]],
     genero: [, [Validators.required, Validators.pattern(patternText)]],
+    barrio: [, [Validators.required, Validators.pattern(patternText)]],
     fechaNacimiento: [,[Validators.required, Validators.pattern(patternDateFormat)]],
     estado: [, [Validators.required]],
   });
@@ -95,7 +96,8 @@ export class AfiliadoFormComponent {
         if (!value) delete afiliadoSend[key as keyof Afiliado];
       });
     }
-    this.registrarFormulario(afiliadoSend);
+    // this.registrarFormulario(afiliadoSend);
+    console.log(afiliadoSend);
   }
   registrarFormulario(afiliadoForm:Afiliado){
     this.confirmationService.confirm({
@@ -152,7 +154,13 @@ export class AfiliadoFormComponent {
     { name: 'Activo', value: 1 },
     { name: 'Inactivo', value: 0 },
   ];
-
+  barrios = [
+    { name: '20 de marzo', value: '20 de marzo' },
+    { name: 'San Antonio', value: 'san antonio' },
+    { name: 'Mendez Fortaleza', value: 'mendez fortaleza' },
+    { name: 'Verde Olivo', value: 'verde olivo' },
+    { name: 'Primavera', value: 'primavera' },
+  ];
   ///VALIDATORS
 
   campoValido(nombre: string) {
@@ -247,6 +255,15 @@ export class AfiliadoFormComponent {
       return 'El campo contiene caracteres invalidos';
     } else if (errors?.['minlength']) {
       return 'El tamaño minimo debe ser 3';
+    }
+    return '';
+  }
+  getBarrioErrors(campo:string){
+    const errors = this.afiliadoForm.get(campo)?.errors;
+    if (errors?.['required']) {
+      return 'El campo es requerido';
+    } else if (errors?.['pattern']) {
+      return 'El campo contiene caracteres invalidos';
     }
     return '';
   }
